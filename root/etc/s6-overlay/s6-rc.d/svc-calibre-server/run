@@ -1,0 +1,8 @@
+#!/usr/bin/with-contenv bash
+
+exec \
+    s6-notifyoncheck -d -n 300 -w 1000 -c "nc -z localhost 8080" \
+        cd /books s6-setuidgid abc /usr/bin/calibre-server \
+    --disable-use-bonjour \
+    $DOCKER_CALIBRE_SERVER_CLI \
+    "/books"
